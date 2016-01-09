@@ -34,17 +34,17 @@ pair<bool,int> dicotomica(const vector<int>& ordenados, int buscado, int e, int 
     return make_pair(true, contador);
 }
 
-int main(int argc, char ** argv) {
+int main() {
     int n;
     vector<int> ordenados;
     numero_comp = comp_ciertas = comp_falsas = 0;
-    ifstream diccionario (argv[1]);
+    ifstream diccionario ("diccionario.txt");
     if (diccionario.is_open()) {
         while (diccionario >> n) ordenados.push_back(n);
         diccionario.close();
         sort(ordenados.begin(),ordenados.end(),comp);
         cout << "Comparaciones_ordenar " << numero_comp << endl;
-        ifstream palabras(argv[2]);
+        ifstream palabras("palabras.txt");
         if (palabras.is_open()) {
             int size = ordenados.size();
             while (palabras >> n) {
