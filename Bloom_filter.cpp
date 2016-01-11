@@ -8,6 +8,8 @@ using namespace std;
 
 int m,k;
 vector <bool> bloom;
+int acierto;
+int fallo;
 
 
 
@@ -65,30 +67,30 @@ bool Consulta_Dato(int i) {
 }
 
 int main() {
-  m = 1000;
-  k = 5;
+  m = 200000;
+  k = 100;
   int n;
+  acierto = 0;
+  fallo = 0;
   bloom = vector <bool> (m,false);
-  vector<int> datos = vector<int> ();
   ifstream diccionario("./diccionario.txt");
   if (diccionario.is_open()) {
-    while (diccionario >> n) datos.push_back(n);
+    while (diccionario >> n) Anadir_Dato(n);
     diccionario.close();
     
-    for(int i = 0; i < n; ++i) {
-      Anadir_Dato(datos[i]);
-    }
   
     ifstream palabras("palabras.txt");
     if (palabras.is_open()) {
       //int size = datos.size();
       while (palabras >> n) {
-	  cout << "Num " << n << endl;
+	  //cout << "Num " << n << endl;
 	  if (Consulta_Dato(n)) {
-	    cout << "encontrado " << endl << endl;
+	    //cout << "encontrado " << endl << endl;
+	    acierto++;
 	  }
 	  else {
-	    cout << "no_encontrado " << endl << endl;
+	    //cout << "no_encontrado " << endl << endl;
+	    fallo++;
 	  }
       }
       palabras.close();
@@ -96,5 +98,7 @@ int main() {
     else cout << "Archivo 'palabras' no disponible" << endl;
   }
   else cout << "Archivo 'diccionario' no disponible" << endl;
+  cout << "Fallos: " << fallo;
+  cout << "Aciertos: " << acierto << endl;
 }
   
