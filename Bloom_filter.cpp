@@ -77,8 +77,6 @@ int main() {
   if (diccionario.is_open()) {
     while (diccionario >> n) Anadir_Dato(n);
     diccionario.close();
-    
-  
     ifstream palabras("palabras.txt");
     if (palabras.is_open()) {
       //int size = datos.size();
