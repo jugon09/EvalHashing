@@ -8,6 +8,8 @@
 
 using namespace std;
 
+int comp_true = 0;
+int comp_false = 0;
 vector<list<int> > hash_table;
 
 int findNextPower(int n)
@@ -51,15 +53,26 @@ void insertData(vector<int>& v)
 pair<bool,int> search(int i)
 {
 	int h = hash(i, hash_table.size());
-	if (h > hash_table.size() or h < 0)
+	
+    if (h > hash_table.size() or h < 0)
     {
+        //++comp_false;
         return make_pair(false,-1);
+        
     } 
 	else
     {
         for (list<int>::iterator b = hash_table[h].begin(); b != hash_table[h].end(); ++b)
         {
-            if (*b == i) return make_pair(true, i);
+            if (*b == i)
+            {
+                ++comp_true;
+                return make_pair(true, i);
+            }
+            else
+            {
+                ++comp_false;
+            }
         }
 
       return make_pair(false,-1);  
@@ -84,19 +97,16 @@ int main (int argc, char ** argv)
                 cout << "Num " << n << endl;
                 pair<bool,int> busqueda = search(n);
                 if (busqueda.first) {
-                    int i_r = busqueda.second;
                     cout << "encontrado " << endl << endl;
-                    //comp_ciertas += busqueda.second;
                 }
                 else {
                     cout << "no_encontrado " << endl << endl;
-                    //comp_falsas += busqueda.second;
                 }
-                //cout << busqueda.second << " comparaciones." << endl;
+            
             }
             palabras.close();
-            //cout << "comparaciones ciertas " << comp_ciertas << endl;
-            //cout << "comparaciones falsas " << comp_falsas << endl;
+
+            cout << endl << "Comparaciones fallidas (por colisión): " << comp_false << endl;
         }
         else cout << "Archivo 'palabras' no disponible" << endl;
 	

@@ -1,6 +1,9 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <algorithm>
+#include <fstream>
+#include <string>
 using namespace std;
 
 int m,k;
@@ -9,15 +12,15 @@ vector <bool> bloom;
 
 
 unsigned int hash0(int key) {
-key = ~key + (key << 15);
-key = key ^ ((unsigned int) key >> 12);
-key = key + (key << 2);
-key = key ^ ((unsigned int) key >> 4);
-key = key * 2057;
-key = key ^ ((unsigned int) key >> 16);
-int k = key;
-unsigned int r = k < 0? -k : k;
-return r;
+  key = ~key + (key << 15);
+  key = key ^ ((unsigned int) key >> 12);
+  key = key + (key << 2);
+  key = key ^ ((unsigned int) key >> 4);
+  key = key * 2057;
+  key = key ^ ((unsigned int) key >> 16);
+  int k = key;
+  unsigned int r = k < 0? -k : k;
+  return r;
 
 }
 
@@ -37,7 +40,7 @@ vector<unsigned int> K_Hash(int i) {
   hashes[0] = hash0(i);
   hashes[1] = hash1(i);
   for (unsigned int i = 2; i < k; i++) {
-    hashes[i] = hash0 + i*hash1; 
+    hashes[i] = hashes[0] + i * hashes[1]; 
   }
   return hashes;
   
@@ -61,7 +64,34 @@ bool Consulta_Dato(int i) {
 int main() {
   m = 1000;
   k = 5;
+  int n;
   bloom = vector <bool> (m,false);
+  vector<int> datos = vector<int> ();
+  ifstream diccionario("./diccionario.txt");
+  if (diccionario.is_open()) {
+    while (diccionario >> n) datos.push_back(n);
+    diccionario.close();
   
-  
+    for(int i = 0; i < n; ++i) {
+      Anadir_Dato(datos[i]);
+    }
+    
+    ifstream palabras("palabras.txt");
+    if (palabras.is_open()) {
+      //int size = datos.size();
+      while (palabras >> n) {
+	  cout << "Num " << n << endl;
+	  if (Consulta_Dato(n)) {
+	    cout << "encontrado " << endl << endl;
+	  }
+	  else {
+	    cout << "no_encontrado " << endl << endl;
+	  }
+      }
+      palabras.close();
+    }
+    else cout << "Archivo 'palabras' no disponible" << endl;
+  }
+  else cout << "Archivo 'diccionario' no disponible" << endl;
 }
+  
