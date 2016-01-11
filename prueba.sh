@@ -2,7 +2,7 @@
 
 n=0
 n_fin=10
-programa=./cerca_binaria
+programa=./hash
 out=cerca_binaria_resultados.txt
 
 rm $out
