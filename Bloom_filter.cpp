@@ -9,15 +9,15 @@ vector <bool> bloom;
 
 
 unsigned int hash0(int key) {
-key = ~key + (key << 15);
-key = key ^ ((unsigned int) key >> 12);
-key = key + (key << 2);
-key = key ^ ((unsigned int) key >> 4);
-key = key * 2057;
-key = key ^ ((unsigned int) key >> 16);
-int k = key;
-unsigned int r = k < 0? -k : k;
-return r;
+  key = ~key + (key << 15);
+  key = key ^ ((unsigned int) key >> 12);
+  key = key + (key << 2);
+  key = key ^ ((unsigned int) key >> 4);
+  key = key * 2057;
+  key = key ^ ((unsigned int) key >> 16);
+  int k = key;
+  unsigned int r = k < 0? -k : k;
+  return r;
 
 }
 
@@ -36,8 +36,8 @@ vector<unsigned int> K_Hash(int i) {
   vector <unsigned int> hashes = vector <unsigned int>(k);
   hashes[0] = hash0(i);
   hashes[1] = hash1(i);
-  for (int i = 2; i < k; i++) {
-    hashes[i] = hash0 + i*hash1; 
+  for (unsigned int i = 2; i < k; i++) {
+    hashes[i] = hashes[0] + i * hashes[1]; 
   }
   return hashes;
   
