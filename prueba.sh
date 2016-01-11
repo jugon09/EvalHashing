@@ -2,14 +2,14 @@
 
 n=0
 n_fin=10
-programa=./cerca_binaria
+programa=./hash
 out=cerca_binaria_resultados.txt
 
 rm $out
 
 while [ $n -lt $n_fin ]
 do
-    q=$((($n * 100) /$n_fin))
+    q=$((($n * 100) / $n_fin))
     n=$(($n+1))
     echo -ne "\r$q %"
     ./generadorRandom < entrada.txt

@@ -16,8 +16,8 @@ vector<list<int> > hash_table;
 int findNextPower(int n)
 {
     int p = ceil(log2(n));
-    int l = pow(2,p+1);
-    cout << "m is " << l+2 << endl;
+    int l = pow(2,p);
+    //cout << "m is " << l+2 << endl;
     return l+2;
 
 }
@@ -46,7 +46,7 @@ void insertData(vector<int>& v)
 	{
 		unsigned int id = hash(v[i], m);
         hash_table[id].push_back(v[i]);
-		cout << v[i] << " -> " << id << endl;
+		//cout << v[i] << " -> " << id << endl;
 	}
 	
 }
@@ -58,26 +58,24 @@ pair<bool,int> search(int i)
     if (h > hash_table.size() or h < 0)
     {
         //++comp_false;
-        return make_pair(false,-1);
+        return make_pair(false,1);
         
     } 
 	else
     {
+        int cf = 0;
         for (list<int>::iterator b = hash_table[h].begin(); b != hash_table[h].end(); ++b)
         {
             if (*b == i)
             {
                 if (b == hash_table[h].begin()) ++perfect;
                 ++comp_true;
-                return make_pair(true, i);
+                return make_pair(true, cf);
             }
-            else
-            {
-                ++comp_false;
-            }
+            ++cf;
         }
 
-      return make_pair(false,-1);  
+      return make_pair(false,cf);  
     } 
 }
 
@@ -85,7 +83,7 @@ int main (int argc, char ** argv)
 {
 	int n;
 	vector<int> datos = vector<int> ();
-	ifstream diccionario("./diccionario.txt");
+	ifstream diccionario("diccionario.txt");
 	if (diccionario.is_open()) {
 		while (diccionario >> n) datos.push_back(n);
         diccionario.close();
@@ -96,23 +94,22 @@ int main (int argc, char ** argv)
         if (palabras.is_open()) {
             //int size = datos.size();
             while (palabras >> n) {
-                cout << "Num " << n << endl;
+                //cout << "Num " << n << endl;
                 pair<bool,int> busqueda = search(n);
                 if (busqueda.first) {
-                    cout << "encontrado " << endl << endl;
+                    comp_false += busqueda.second;
                 }
                 else {
-                    cout << "no_encontrado " << endl << endl;
+                    comp_false += busqueda.second;
                 }
-            
             }
             palabras.close();
 
             cout << endl << "Comparaciones fallidas (por colisión): " << comp_false << endl;
             cout << endl << "Encontrado a la primera: " << perfect << endl;
+            cout << "Encontrados: " << comp_true << endl;
         }
         else cout << "Archivo 'palabras' no disponible" << endl;
-	
 	}
 	else cout << "Archivo 'diccionario' no disponible" << endl;
 
