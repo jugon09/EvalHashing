@@ -10,14 +10,15 @@ using namespace std;
 
 int comp_true = 0;
 int comp_false = 0;
+int perfect = 0;
 vector<list<int> > hash_table;
 
 int findNextPower(int n)
 {
     int p = ceil(log2(n));
-    int l = pow(2,p);
-    cout << "m is " << l << endl;
-    return l+1;
+    int l = pow(2,p+1);
+    cout << "m is " << l+2 << endl;
+    return l+2;
 
 }
 
@@ -66,6 +67,7 @@ pair<bool,int> search(int i)
         {
             if (*b == i)
             {
+                if (b == hash_table[h].begin()) ++perfect;
                 ++comp_true;
                 return make_pair(true, i);
             }
@@ -107,6 +109,7 @@ int main (int argc, char ** argv)
             palabras.close();
 
             cout << endl << "Comparaciones fallidas (por colisión): " << comp_false << endl;
+            cout << endl << "Encontrado a la primera: " << perfect << endl;
         }
         else cout << "Archivo 'palabras' no disponible" << endl;
 	
