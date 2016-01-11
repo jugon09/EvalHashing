@@ -36,7 +36,7 @@ vector<unsigned int> K_Hash(int i) {
   vector <unsigned int> hashes = vector <unsigned int>(k);
   hashes[0] = hash0(i);
   hashes[1] = hash1(i);
-  for (int i = 2; i < k; i++) {
+  for (unsigned int i = 2; i < k; i++) {
     hashes[i] = hash0 + i*hash1; 
   }
   return hashes;

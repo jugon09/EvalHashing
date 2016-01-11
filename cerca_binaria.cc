@@ -48,17 +48,17 @@ int main() {
         if (palabras.is_open()) {
             int size = ordenados.size();
             while (palabras >> n) {
-                cout << "Num " << n;
+                //cout << "Num " << n;
                 pair<bool,int> busqueda = dicotomica(ordenados,n,0,size - 1);
                 if (busqueda.first) {
-                    cout << " encontrado ";
+                    //cout << " encontrado ";
                     comp_ciertas += busqueda.second;
                 }
                 else {
-                    cout << " no_encontrado ";
+                    //cout << " no_encontrado ";
                     comp_falsas += busqueda.second;
                 }
-                cout << busqueda.second << " comparaciones." << endl;
+                //cout << busqueda.second << " comparaciones." << endl;
             }
             palabras.close();
             cout << "comparaciones ciertas " << comp_ciertas << endl;

@@ -15,8 +15,7 @@ public vector<int> K_Hash(int i) {
   for (int i = 2; i < k; i++) {
     hashes[i] = hash0 + i*hash1; 
   }
-  return hashes;
-  
+  return hashes;  
 }
 
 public void Añadir_Dato(int i) {
@@ -38,8 +37,4 @@ int main() {
   m = 1000;
   k = 5;
   bloom = new vector <bool> (m,false);
-  
-  
-  
-  
 }

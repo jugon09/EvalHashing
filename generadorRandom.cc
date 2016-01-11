@@ -29,10 +29,10 @@ int main() {
     int limite = 2*n;
     vector<int> palabrasV(diccionario.begin(),diccionario.end());
     for (int j = 0; j < limite; ++j) {
-        if (j%(limite/8) == 0) palabras << palabrasV[j%n];
+        if (j%(limite/2000) == 0) palabras << palabrasV[j%n];
         else palabras << (rand()%limite + 1);
         palabras << " ";
-        if (j%10 == 0) palabras << "\n";
+        if ((j+1)%10 == 0) palabras << "\n";
     }
     palabras.close();
 }
