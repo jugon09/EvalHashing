@@ -1,6 +1,9 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
+#include <algorithm>
+#include <fstream>
+#include <string>
 using namespace std;
 
 int m,k;
@@ -61,7 +64,34 @@ bool Consulta_Dato(int i) {
 int main() {
   m = 1000;
   k = 5;
+  int n;
   bloom = vector <bool> (m,false);
+  vector<int> datos = vector<int> ();
+  ifstream diccionario("./diccionario.txt");
+  if (diccionario.is_open()) {
+    while (diccionario >> n) datos.push_back(n);
+    diccionario.close();
   
-  
+    for(int i = 0; i < n; ++i) {
+      Anadir_Dato(datos[i]);
+    }
+    
+    ifstream palabras("palabras.txt");
+    if (palabras.is_open()) {
+      //int size = datos.size();
+      while (palabras >> n) {
+	  cout << "Num " << n << endl;
+	  if (Consulta_Dato(n)) {
+	    cout << "encontrado " << endl << endl;
+	  }
+	  else {
+	    cout << "no_encontrado " << endl << endl;
+	  }
+      }
+      palabras.close();
+    }
+    else cout << "Archivo 'palabras' no disponible" << endl;
+  }
+  else cout << "Archivo 'diccionario' no disponible" << endl;
 }
+  
