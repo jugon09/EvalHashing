@@ -26,19 +26,21 @@ unsigned int hash0(int key) {
 
 //Multiplicación de Knuth
 unsigned int hash1(int i) {
-  unsigned int v = 2654435761;
-  unsigned int p = pow(2,32);
-  unsigned int r = v / p;
-  r = i*r;
-  
-  return r;
+  int v = 2654435761;
+  int p = pow(2,32);
+  int r = v / p;
+  unsigned int rr = i*r;
+  return rr;
 }
 
 
 vector<unsigned int> K_Hash(int i) {
   vector <unsigned int> hashes = vector <unsigned int>(k);
+
   hashes[0] = hash0(i);
+
   hashes[1] = hash1(i);
+
   for (unsigned int i = 2; i < k; i++) {
     hashes[i] = hashes[0] + i * hashes[1]; 
   }
@@ -47,7 +49,9 @@ vector<unsigned int> K_Hash(int i) {
 }
 
 void Anadir_Dato(int i) {
+  cout << "Debug 1" << endl;
   vector <unsigned int> v = K_Hash(i);
+  
   for (int i = 0; i < k; ++i) {
      bloom[v[i]%m] = true;
   }
@@ -71,11 +75,11 @@ int main() {
   if (diccionario.is_open()) {
     while (diccionario >> n) datos.push_back(n);
     diccionario.close();
-  
+    
     for(int i = 0; i < n; ++i) {
       Anadir_Dato(datos[i]);
     }
-    
+  
     ifstream palabras("palabras.txt");
     if (palabras.is_open()) {
       //int size = datos.size();
