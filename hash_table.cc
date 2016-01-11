@@ -16,7 +16,7 @@ vector<list<int> > hash_table;
 int findNextPower(int n)
 {
     int p = ceil(log2(n));
-    int l = pow(2,p+1);
+    int l = pow(2,p);
     cout << "m is " << l+2 << endl;
     return l+2;
 
@@ -85,7 +85,7 @@ int main (int argc, char ** argv)
 {
 	int n;
 	vector<int> datos = vector<int> ();
-	ifstream diccionario("./diccionario.txt");
+	ifstream diccionario("diccionario.txt");
 	if (diccionario.is_open()) {
 		while (diccionario >> n) datos.push_back(n);
         diccionario.close();
@@ -99,10 +99,10 @@ int main (int argc, char ** argv)
                 cout << "Num " << n << endl;
                 pair<bool,int> busqueda = search(n);
                 if (busqueda.first) {
-                    cout << "encontrado " << endl << endl;
+                    //cout << "encontrado " << endl << endl;
                 }
                 else {
-                    cout << "no_encontrado " << endl << endl;
+                    //cout << "no_encontrado " << endl << endl;
                 }
             
             }
@@ -110,6 +110,7 @@ int main (int argc, char ** argv)
 
             cout << endl << "Comparaciones fallidas (por colisión): " << comp_false << endl;
             cout << endl << "Encontrado a la primera: " << perfect << endl;
+            cout << "Encontrados: " << comp_true << endl;
         }
         else cout << "Archivo 'palabras' no disponible" << endl;
 	

@@ -49,7 +49,6 @@ vector<unsigned int> K_Hash(int i) {
 }
 
 void Anadir_Dato(int i) {
-  cout << "Debug 1" << endl;
   vector <unsigned int> v = K_Hash(i);
   
   for (int i = 0; i < k; ++i) {

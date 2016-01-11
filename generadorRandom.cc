@@ -9,6 +9,11 @@ using namespace std;
 int main() {
     int n;
     cin >> n;
+    if (n < 2000)
+    {
+        cout << "El número es menor a 2000. Elija otro número para la próxima vez." << endl;
+        return 0;
+    }
     set<int> diccionario;
     ofstream diccionarioFile;
     diccionarioFile.open("diccionario.txt");
@@ -23,13 +28,19 @@ int main() {
             if (i%10 == 0) diccionarioFile << "\n";
         }
     }
+
     diccionarioFile.close();
     ofstream palabras;
     palabras.open ("palabras.txt");
     int limite = 2*n;
     vector<int> palabrasV(diccionario.begin(),diccionario.end());
     for (int j = 0; j < limite; ++j) {
-        if (j%(limite/2000) == 0) palabras << palabrasV[j%n];
+        int ll = limite / 2000; 
+        int mo = j%ll;
+        if (mo == 0)
+            {
+                palabras << palabrasV[j%n];
+            }
         else palabras << (rand()%limite + 1);
         palabras << " ";
         if ((j+1)%10 == 0) palabras << "\n";
